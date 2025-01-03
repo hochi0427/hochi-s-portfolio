@@ -1,0 +1,96 @@
+{
+  "projects": [
+    {
+      "name": "Musleep",
+      "slug": "musleep",
+      "image": "MusleepLogo.png",
+      "id": 1,
+      "description": "Musleep is a system that intergrates smartwatch data, voice-assisted robot and personalized sleep music playlists to enhance one's sleep quality.",
+      "subLabel": "Gradation Project",
+      "demonstrates": [
+        {
+          "name": "Motivation",
+          "slug": "motivation",
+          "title": "System Motivation",
+          "description": "◇ Sleep problems are likely to increase.\n\n◇ Music can improve sleep hygiene."
+        },
+        {
+          "name": "Purpose",
+          "slug": "purpose",
+          "title": "System Purpose",
+          "description": "◇ Improve sleep Efficiency and Sleep Habits.\n\n◇ Providing Intelligent Music Recommendation from Social Robot.\n\n◇ Systemizing and Visualizing Sleep Diary.\n\n◇ Connecting Real Time Wearable Computing of Smart Watch."
+        },
+        {
+          "name": "Background Information",
+          "slug": "background",
+          "title": "Background Information of the System",
+          "description": ""
+        },
+        {
+          "name": "System Architecture",
+          "slug": "sad",
+          "title": "System Architecture Diagram",
+          "description": "◇ The Musleep APP is developed using <b>Android Studio</b>, and utilizes <b>QNAP's audio localization</b> and <b>voice assistant APIs</b>. The audio localization API allows for capturing and controlling the angle of the screen orientation on the KoiBot; the voice assistant API provides custom voice commands and calls specified Activities and Receivers within the APP.\n\n◆ The <b>Samsung Galaxy Watch Active 2</b> uses JavaScript syntax, and leverages built-in Tizen syntax to obtain the watch's sleep status sensor data, monitoring changes in the user's sleep status.\n\n◇ The <b>collaborative filtering</b> and <b>music tag algorithms</b> are written in <b>Python</b> and hosted on an <b>AWS EC2 virtual server</b>. The computation results are then sent back to Firebase.",
+          "image": "SAD.png"
+        },
+        {
+          "name": "Personal Music",
+          "slug": "personal_music",
+          "title": "Music Recommendation System",
+          "description": "Musleep draws upon extensive research from multiple music and sleep studies to create a unique recommendation system.\n\nBased on the user's data from a seven-day period (the cycle), the recommendation system <b>combines user collaborative filtering</b> and <b>music tag analysis</b> to sum up the standardized scores. Then, according to the scores, the top seven songs with the highest scores are selected as the recommended playlist for the next cycle. (In case of a tie, the system will randomly choose among the tied songs.)"
+        },
+        {
+          "name": "System Display",
+          "slug": "system_display",
+          "title": "System Display",
+          "description": ""
+        },
+        {
+          "name": "Future Prospects",
+          "slug": "prospects",
+          "title": "Future Outlook for the System",
+          "description": "◇ Collaborate with music therapists.\n\n◆ Partner with medical institutions.\n\n◇ Integrate additional sleep detection devices.\n\n◆ Collaborate with other types of robots."
+        },
+        {
+          "name": "Individual Contributions",
+          "slug": "individual_contributions",
+          "title": "Individual Contributions",
+          "description": "◆ <b>Conceptualization and Overall Design of the Musleep System</b>, including research and inquiry into background knowledge to inform and enhance the thematic development\n\n◇ <b>Front-end Design of Musleep App</b>, including interface design and coding, utilizing Android Studio with Java\n\n◆ <b>Back-end Development of Musleep App</b>, encompassing the setup and integration of the Firebase database architecture, along with coding\n\n◇ <b>Integration of Musleep with KoiBot Robot</b>, involving the connection of APIs/SDKs, which includes functionalities for sound playback, voice assistance, and audio localization"
+        }
+      ]
+    },
+    {
+      "name": "Venology",
+      "slug": "venology",
+      "image": "VenologyLogo.png",
+      "id": 2,
+      "subLabel": "Midtern Project",
+      "description": "Venology is a mobile app integrated with vending machines, providing users with information on the locations and products of vending machines to address the current shortcomings of vending machines",
+      "demonstrates": [
+        {
+          "name": "Motivation",
+          "slug": "motivation",
+          "description": "◇ Difficulty in Locating Vending Machines\n\n◇ Product Availability Issues：  Consumers frequently encounter situations where the vending machine is out of the desired product or doesn't carry it at all, leading to wasted trips"
+        },
+        {
+          "name": "Purpose",
+          "slug": "purpose",
+          "title": "System Purpose",
+          "description": "<b>Enhance User Experience：</b>\n\n◇ Vending Machine Locator\n\n◇ Product Availability Notifications\n\n◇ Mobile Payments\n\n<b>Increase Operational Efficiency for Vending Machine Operators：</b>\n\n◇ Remote Inventory Management"
+        },
+        {
+          "name": "Background Information",
+          "slug": "background",
+          "title": "Background Information of the System",
+          "description": ""
+        },
+        {
+          "name": "System Display",
+          "slug": "system_display",
+          "title": "System Display",
+          "description": ""
+        }
+      ]
+    }
+  ]
+}

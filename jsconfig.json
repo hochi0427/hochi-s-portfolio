@@ -1,0 +1,11 @@
+{
+    "include": [
+        "./src/**/*"
+    ],
+    "conpilerOptions":{
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    }
+}
