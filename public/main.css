@@ -36,13 +36,12 @@ a:visited {
 
 /* Home */
 .home img {
-  width: 200px;
-  height: 200px;
+  width: 230px;
+  max-height: 230px;
 }
 .home .projects {
   display: flex;
-  width: 600px;
-  /* justify-content: center; */
+  /* width: 600px; */
   justify-content: space-between;
 }
 
