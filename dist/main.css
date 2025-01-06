@@ -106,8 +106,7 @@ a {
 .demonstrates {
   overflow-y: auto;
   padding-top: 10px;
-  padding-bottom: 60px;
-  margin-top: 30px;
+  padding-bottom: 10px;
   border-top: 1px solid #d4d4d4;
   box-shadow: 0px -1px #fbfbfb;
 }
@@ -120,9 +119,17 @@ a {
 .demonstrates .card:hover {
   transform: scale(1.05);
 }
+
+.demonstrates .cards-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .demonstrates .cards {
+  padding: 5px;
   display: flex;
   gap: 15px;
+  flex-wrap: nowrap; /*不換行*/
   text-align: center;
 }
 /* .demonstrates img {
@@ -131,13 +138,13 @@ a {
   object-fit: cover;
   display: block;
 } */
-.demonstrates .card .card__text {
+/* .demonstrates .card .card__text {
   background: #2c3e50;
   color: white;
   display: block;
   border-top: 2px solid #4e6c71;
   padding: 10px;
-}
+} */
 
 .demonstrates-details img {
   float: left;
@@ -145,7 +152,7 @@ a {
 }
 
 /*Modal Overlay*/
-.modal-overlay:before {
+/* .modal-overlay:before {
   content: "";
   position: fixed;
   top: 0;
@@ -167,7 +174,7 @@ a {
   background: white;
   padding: 15px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
-}
+} */
 .close {
   position: absolute;
   top: 0px;
@@ -180,25 +187,4 @@ a {
   display: inline-block;
   margin-bottom: 15px;
 }
-/* Form */
-.form {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  margin: 0 auto;
-}
 
-.input {
-  border: 1px solid gray;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-}
-
-.btn {
-  background-color: #2c3e50;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-}
