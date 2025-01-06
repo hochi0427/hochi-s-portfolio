@@ -6,7 +6,7 @@
       <router-link to="/about">
         <h2>About</h2>
         <p class="subLabel">About me</p>
-        <img class="logo" src="/images/Hochi.jpg" alt="About me" />
+        <img class="logo" src="/images/KAO.jpg" alt="About me" />
       </router-link>
       <router-link
         v-for="project in projects"
@@ -21,7 +21,7 @@
 
         <img
           class="logo"
-          :src="`/images/${project.image}`"
+          :src="`/hochi-s-portfolio/images/${project.image}`"
           :alt="project.name"
         />
       </router-link>

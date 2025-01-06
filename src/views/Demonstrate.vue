@@ -4,7 +4,7 @@
     <!-- 只有當 demonstrate.image 存在時，才顯示圖片 -->
     <img
       v-if="demonstrate.image"
-      :src="`/images/${demonstrate.image}`"
+      :src="`/hochi-s-portfolio/images/${demonstrate.image}`"
       :alt="demonstrate.name"
     />
     <p v-html="formattedDescription"></p>
