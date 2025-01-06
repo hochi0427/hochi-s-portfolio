@@ -14,3 +14,6 @@ export default defineConfig({
     port: 5500
   }
 })
+module.export = {
+  publicPath: '/hochi-s-portfolio/'
+}
