@@ -52,7 +52,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory('/hochi-s-portfolio/'),
+  history: createWebHistory(),
   routes,
   linkActiveClass: "active-link",
   //每次都回到頁面頂端
