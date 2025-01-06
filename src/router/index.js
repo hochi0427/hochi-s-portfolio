@@ -7,10 +7,14 @@ import sourceData from "@/data.json";
 const routes = [
   { path: "/", name: "Home", component: Home },
   {
-    path: "/about", name: "About", component: About,
+    path: "/about",
+    name: "About",
+    component: About,
   },
   {
-    path: "/puzzlegame", name: "PuzzleGame", component: PuzzleGame,
+    path: "/puzzlegame",
+    name: "PuzzleGame",
+    component: PuzzleGame,
   },
   {
     path: "/project/:id/:slug",
@@ -48,18 +52,21 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/hochi-s-portfolio/'),
   routes,
   linkActiveClass: "active-link",
   //每次都回到頁面頂端
-  //   scrollBehavior (to, from, savedPosition) {
-  //     return (
-  //       savedPosition ||
-  //       new Promise((resolve) => {
-  //         setTimeout(() => resolve({ top: 0, behavior: "smooth" }), 300)
-  //       })
-  //     );
-  //   },
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    if (to.name === "About") {
+      return new Promise((resolve) => {
+        setTimeout(() => resolve({ top: 0, behavior: "smooth" }), 300);
+      });
+    }
+    // return { top: 0, behavior: "smooth" };
+  },
 });
 
 export default router;
