@@ -69,7 +69,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background-color: #e9ecef;
+  background-color: white;
   /* margin-top: 10px; */
   font-size: 14px;
   max-height: 140px; /* 設置最大高度 */
