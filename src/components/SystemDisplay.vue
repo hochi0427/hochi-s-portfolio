@@ -91,11 +91,8 @@
 .system_display {
   border: 3px solid #6a3e37;
 }
-.video_container {
-  background: burlywood;
-}
 thead tr {
-  background: #cbb9a8;
+  background: #ead7c4;
 }
 td video {
   width: 100%;

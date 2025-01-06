@@ -13,7 +13,7 @@
       liked by the user are multiplied by 1.2, while those disliked are
       multiplied by 0.8.
     </p>
-    <img src="/images/MusicTags1.png" alt="Image 1" class="image" />
+    <img src="/images/MusicTags1.png" alt="Image 1" class="image" style="width:80%; height:auto"/>
     <p class="fyi" style="font-size: 15px">
       * Sleep Efficiency = (total sleep time / duration of the sleep episode) *
       100
@@ -23,7 +23,7 @@
       src="/images/MusicTags2.png"
       alt="Image 2"
       class="image"
-      style="height: 350px"
+      style="width:90%; height:auto"
     />
     <p>
       Each song in the database is then scored based on the total tag scores
@@ -35,7 +35,7 @@
       src="/images/MusicTags3.png"
       alt="Image 3"
       class="image"
-      style="height: 160px"
+      style="width:90%; height:auto"
     />
   </div>
 </template>
@@ -47,11 +47,6 @@
   height: 560px; /* 設置容器高度 */
   overflow-y: auto; /* 使容器內容可垂直滾動 */
   border: 3px solid #ccc; /* 可選: 設置邊框以便看得清楚 */
-}
-
-.image {
-  width: 100%;
-  height: auto; /* 讓圖片自適應高度 */
 }
 
 .fyi {

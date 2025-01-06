@@ -78,7 +78,7 @@
   border: 3px solid #6a3e37;
 }
 thead tr {
-  background: #cbb9a8;
+  background: #ead7c4;
 }
 td img {
   width: 100%;

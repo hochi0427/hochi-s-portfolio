@@ -123,7 +123,7 @@ export default {
 }
 
 .demonstrates button {
-  background: #cbb9a8;
+  background: #ead7c4;
   color: #6a3e37;
   border: 3px solid #6a3e37;
   border-top-left-radius: 15px;

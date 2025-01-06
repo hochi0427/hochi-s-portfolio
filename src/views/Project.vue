@@ -1,25 +1,29 @@
 <template>
-    <div>
-      <!-- Title -->
-      <section v-if="project" class="project">
-        <h1>{{ project.name }}</h1>
-        <div class="project-details">
-          <img :src="`/hochi-s-portfolio/images/${project.image}`" :alt="project.name" />
-          <div>
-            <p>{{ project.description }}</p>
-            <!-- Motivation & Purpose -->
-            <div
-              v-for="demonstrate in project.demonstrates.slice(0, 2)"
-              :key="demonstrate.slug"
-            >
-              <Collapse :demonstrate="demonstrate" />
-            </div>
+  <div>
+    <!-- Title -->
+    <section v-if="project" class="project">
+      <h1>{{ project.name }}</h1>
+      <div class="project-details">
+        <img
+          :src="`/hochi-s-portfolio/images/${project.image}`"
+          :alt="project.name"
+        />
+        <div>
+          <p>{{ project.description }}</p>
+          <!-- Motivation & Purpose -->
+          <div
+            v-for="demonstrate in project.demonstrates.slice(0, 2)"
+            :key="demonstrate.slug"
+          >
+            <Collapse :demonstrate="demonstrate" />
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="demonstrates">
-        <h2>System Introduction</h2>
+    <section class="demonstrates">
+      <h2>System Introduction</h2>
+      <div class="cards-wrapper">
         <div class="cards">
           <router-link
             v-for="demonstrate in project.demonstrates.slice(2)"
@@ -32,9 +36,10 @@
             <DemonstrateCard :demonstrate="demonstrate" />
           </router-link>
         </div>
-        <router-view :key="$route.params.demonstrateSlug" />
-      </section>
-    </div>
+      </div>
+      <router-view :key="$route.params.demonstrateSlug" />
+    </section>
+  </div>
 </template>
 
 <script>
