@@ -4,7 +4,7 @@
       <section v-if="project" class="project">
         <h1>{{ project.name }}</h1>
         <div class="project-details">
-          <img :src="`/images/${project.image}`" :alt="project.name" />
+          <img :src="`/hochi-s-portfolio/images/${project.image}`" :alt="project.name" />
           <div>
             <p>{{ project.description }}</p>
             <!-- Motivation & Purpose -->

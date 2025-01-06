@@ -223,7 +223,7 @@ export default {
   border-radius: 6px;
   border-color: #6a3e37;
   color: #6a3e37;
-  background-color: #cbb9a8;
+  background-color: #ead7c4;
   padding: 5px;
   width: 80px;
   margin: 5px;

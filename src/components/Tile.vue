@@ -43,7 +43,7 @@ export default {
   height: 96px;
   margin: 2px;
   color: #6a3e37;
-  background-color: #cbb9a8;
+  background-color: #ead7c4;
   font-size: 30px;
   line-height: 96px;
   text-align: center;
@@ -58,6 +58,6 @@ export default {
 }
 .tile .ok {
   background-color: #6a3e37;
-  color: #cbb9a8;
+  color: #ead7c4;
 }
 </style>
