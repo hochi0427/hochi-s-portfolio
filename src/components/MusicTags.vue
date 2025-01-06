@@ -13,14 +13,14 @@
       liked by the user are multiplied by 1.2, while those disliked are
       multiplied by 0.8.
     </p>
-    <img src="`/images/MusicTags1.png`" alt="Image 1" class="image" />
+    <img src="/images/MusicTags1.png" alt="Image 1" class="image" />
     <p class="fyi" style="font-size: 15px">
       * Sleep Efficiency = (total sleep time / duration of the sleep episode) *
       100
     </p>
     <p>Totaling the weekly scores for the song tags.</p>
     <img
-      src="`/images/MusicTags2.png`"
+      src="/images/MusicTags2.png"
       alt="Image 2"
       class="image"
       style="height: 350px"
@@ -32,7 +32,7 @@
       method.
     </p>
     <img
-      src="`/images/MusicTags3.png`"
+      src="/images/MusicTags3.png"
       alt="Image 3"
       class="image"
       style="height: 160px"

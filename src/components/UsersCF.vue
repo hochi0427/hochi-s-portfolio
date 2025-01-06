@@ -13,13 +13,13 @@
       <b>Cosine Similarity</b>, we identify users with similar patterns and
       select the top five as recommenders.
     </p>
-    <img src="`/images/UsersCF1.png`" alt="Image 1" class="image" style="width:650px"/>
+    <img src="/images/UsersCF1.png" alt="Image 1" class="image" style="width:650px"/>
     <p>
       The recommendation effectiveness is quantified by scoring the sleep music
       these recommenders listened to over the last week. The total score for
       each song reflects its recommendation strength within our algorithm.
     </p>
-    <img src="`/images/UsersCF2.png`" alt="Image 2" class="image" style="width:650px"/>
+    <img src="/images/UsersCF2.png" alt="Image 2" class="image" style="width:650px"/>
   </div>
 </template>
 <style>
