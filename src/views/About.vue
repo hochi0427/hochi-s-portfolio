@@ -195,7 +195,7 @@ export default {
         this.showElement = false;
       }
 
-      if (scrollPosition > 780) {
+      if (scrollPosition > 790) {
         this.showEducation = true;
       } else {
         this.showEducation = false;

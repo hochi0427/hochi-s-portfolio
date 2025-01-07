@@ -25,15 +25,15 @@
     </div>
     <!-- 只有Personal Music 才顯示 -->
     <div class="personal_music" v-if="demonstrate.name === 'Personal Music'">
-      <button @click="show('tab1')" :class="{ active: tab === 'tab1' }">
+      <button @click="showPersonalMusicTab('tab1')" :class="{ active: personalMusicTab === 'tab1' }" style="font-size: 20px">
         Music Tag Analysis
       </button>
-      <button @click="show('tab2')" :class="{ active: tab === 'tab2' }">
+      <button @click="showPersonalMusicTab('tab2')" :class="{ active: personalMusicTab === 'tab2' }" style="font-size: 20px">
         User Collaborative Filtering
       </button>
       <div style="border: 3px solid #6a3e37">
-        <MusicTags v-if="tab === 'tab1'" />
-        <UsersCF v-if="tab === 'tab2'" />
+        <MusicTags v-if="personalMusicTab === 'tab1'" />
+        <UsersCF v-if="personalMusicTab === 'tab2'" />
       </div>
     </div>
     <!-- 只有System Display 才顯示 -->
@@ -43,8 +43,19 @@
         <SystemDisplay />
       </div>
       <!-- Venology -->
-      <div v-if="project.id === 2">
-        <SystemDisplayVenology />
+      <div class="system_display_venology" v-if="project.id === 2">
+        <button @click="showVenologyTab('tab3')" :class="{ active: venologyTab  === 'tab3' }" style="font-size:18px; width: 250px">
+          User Authentication & Profile
+        </button>
+        <button @click="showVenologyTab('tab4')" :class="{ active: venologyTab  === 'tab4' }" style="font-size:18px; width: 220px">
+          Core Functionality
+        </button>
+        <button @click="showVenologyTab('tab5')" :class="{ active: venologyTab  === 'tab5' }" style="font-size:18px; width: 220px">
+          Auxiliary Features
+        </button>
+        <div style="border: 3px solid #6a3e37">
+           <SystemDisplayVenology :tab="venologyTab" />
+        </div>
       </div>
     </div>
   </section>
@@ -66,7 +77,7 @@ export default {
     MusicTags,
     UsersCF,
     SystemDisplay,
-    SystemDisplayVenology
+    SystemDisplayVenology,
   },
 
   props: {
@@ -94,16 +105,23 @@ export default {
       //Personal Music Scroll Page
       currentPage: 1,
       //Tabs
-      tab: "tab1",
+      personalMusicTab: "tab1",
+      venologyTab: "tab3",
+      contentForTab3: "User Authentication & Profile content here",
+      contentForTab4: "Core Functionality content here",
+      contentForTab5: "Auxiliary Features content here",
     };
   },
   methods: {
     changePage(page) {
       this.currentPage = page;
     },
+    showPersonalMusicTab(index) {
+      this.personalMusicTab = index;
+    },
 
-    show(index) {
-      this.tab = index;
+    showVenologyTab(index) {
+      this.venologyTab = index;
     },
   },
 };
@@ -118,7 +136,8 @@ export default {
   font-size: 18px;
 }
 
-.personal_music {
+.personal_music,
+.system_display_venology {
   justify-items: center;
 }
 
@@ -129,7 +148,6 @@ export default {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   border-bottom: none;
-  font-size: 20px;
   width: 300px;
   padding: 5px;
   margin-left: 10px;

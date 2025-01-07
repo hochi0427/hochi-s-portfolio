@@ -72,7 +72,7 @@ export default {
   background-color: white;
   /* margin-top: 10px; */
   font-size: 14px;
-  max-height: 140px; /* 設置最大高度 */
+  max-height: auto; /* 設置最大高度 */
   overflow-y: auto; /* 超出部分顯示垂直滾動條 */
 }
 /*Motivation 和 Purpose 的動畫*/
