@@ -1,6 +1,6 @@
 # Hochi's Portfolio
 This is Hochi's personal portfolio website, showcasing my past projects, skills, and experiences.
-Link to my portfolio: https://hochi0427.github.io/hochi-s-portfolio/
+-Link to my portfolio: https://hochi0427.github.io/hochi-s-portfolio/
 
 - **Technologies Used**:
   - **Vue.js**: Used to build user interfaces and single-page applications.
