@@ -70,7 +70,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory('/hochi-s-portfolio/'),
+  history: createWebHashHistory('/hochi-s-portfolio/'),
   routes,
   linkActiveClass: "active-link",
   //每次都回到頁面頂端
