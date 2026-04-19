@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import PuzzleGame from "../views/PuzzleGame.vue";
@@ -83,7 +83,7 @@ const router = createRouter({
         setTimeout(() => resolve({ top: 0, behavior: "smooth" }), 300);
       });
     }
-    // return { top: 0, behavior: "smooth" };
+    return { top: 0, behavior: "smooth" };
   },
 });
 
