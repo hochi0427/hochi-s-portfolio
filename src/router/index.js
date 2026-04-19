@@ -1,8 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "@/views/Home.vue";
-import About from "@/views/About.vue";
-import PuzzleGame from "@/views/PuzzleGame.vue";
-import sourceData from "@/data.json";
+import Home from "../views/Home.vue";
+import About from "../views/About.vue";
+import PuzzleGame from "../views/PuzzleGame.vue";
+import Vignette from "../views/Vignette.vue";
+import sourceData from "../data.json";
+import GameMod from "../views/GameMod.vue";
+import WeightGame from "../views/WeightGame.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
@@ -17,9 +20,14 @@ const routes = [
     component: PuzzleGame,
   },
   {
+    path: "/projects/vignette",
+    name: "Vignette",
+    component: Vignette,
+  },
+  {
     path: "/project/:id/:slug",
     name: "project",
-    component: () => import("@/views/Project.vue"),
+    component: () => import("../views/Project.vue"),
     props: (route) => ({ ...route.params, id: parseInt(route.params.id) }),
     //檢查是否有該頁面
     beforeEnter(to, from) {
@@ -39,15 +47,25 @@ const routes = [
       {
         path: ":demonstrateSlug",
         name: "demonstrate",
-        component: () => import("@/views/Demonstrate.vue"),
+        component: () => import("../views/Demonstrate.vue"),
         props: (route) => ({ ...route.params, id: parseInt(route.params.id) }),
       },
     ],
   },
   {
+    path: "/projects/game-mod",
+    name: "GameMod",
+    component: GameMod,
+  },
+  {
+    path: "/projects/weight-game",
+    name: "WeightGame",
+    component: WeightGame,
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
-    component: () => import("@/views/NotFound.vue"),
+    component: () => import("../views/NotFound.vue"),
   },
 ];
 

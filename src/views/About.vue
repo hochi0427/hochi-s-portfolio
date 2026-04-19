@@ -1,57 +1,47 @@
 <template>
-    <section class="About">
-      <!-- preface -->
-      <h1></h1>
-      <h1 id="Title"></h1>
-      <div class="preface-container">
-        <p>
-          This website was developed using <b>Vue3</b> and showcases two major
-          projects from my academic career: my graduation project
-          <router-link to="/project/1/musleep"
-            ><i
-              class="fa-solid fa-arrow-up-right-from-square"
-            />&nbsp;&nbsp;Musleep</router-link
-          >
-          and my midterm project
-          <router-link to="/project/2/venology"
-            ><i class="fa-solid fa-arrow-up-right-from-square"></i
-            >&nbsp;&nbsp;Venology</router-link
-          >. Musleep was awarded the distinction of "Outstanding" in
-          departmental evaluations, and Venology achieved an impressive score of
-          93 out of 100, demonstrating my skills in software development and
-          user experience design.<br /><br />
-          Additionally, I have made a
-          <router-link to="/puzzlegame"
-            ><i
-              class="fa-solid fa-arrow-up-right-from-square"
-            />&nbsp;&nbsp;N-puzzle game</router-link
-          >, further practicing and showcasing my front-end development skills.
-          These projects have not only deepened my understanding of modern web
-          technologies but also strengthened my ability to solve complex
-          problems, keeping me competitive in the ever-evolving tech field.
-        </p>
-        <h4>
-          <a
-            href="https://github.com/hochi0427/hochi-s-portfolio"
-            target="_blank"
-            ><i class="fa-brands fa-github" /> Welcome to visit my GitHub page
-            to explore the source code of my personal portfolio, which was
-            developed using Vue3.</a
-          >
-        </h4>
-      </div>
-      <!-- Work Experience -->
-      <h1 style="margin-top: 50px">
-        <transition name="slide-up"
-          ><i
-            v-if="!showElement && showArrows"
-            class="fa-solid fa-angles-down" /></transition
-        >&nbsp; WORK EXPERIENCE &nbsp;<transition name="slide-up"
-          ><i v-if="!showElement && showArrows" class="fa-solid fa-angles-down"
-        /></transition>
+  <section class="About">
+    <h1 id="Title" class="about-title"></h1>
+
+    <div
+      ref="introSection"
+      class="preface-container reveal-block fade-only"
+      :class="{ 'is-visible': visibleSections.intro }"
+    >
+      <p>
+        Hi, I'm <b>Hochi Kao</b>, currently pursuing an <b>M.S. in Games for
+        Learning</b> at <b>New York University</b>. With a background in
+        <b>Information Management</b> and software development, I am
+        particularly interested in <b>educational technology</b>,
+        <b>game design</b>, and <b>interactive learning experiences</b>. This
+        portfolio highlights selected projects that reflect my work across web
+        development, game-based learning, and user-centered design.
+      </p>
+      <h4>
+        <a
+          href="https://github.com/hochi0427/hochi-s-portfolio"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><i class="fa-brands fa-github" /> View the source code for this
+          portfolio on GitHub.</a
+        >
+      </h4>
+    </div>
+
+    <div ref="workSection" class="about-section">
+      <h1 ref="workTitle" class="section-title section-title-collapsible">
+        <i
+          v-if="!visibleSections.work"
+          class="fa-solid fa-angles-down section-cue-icon"
+        />
+        <span>WORK EXPERIENCE</span>
+        <i
+          v-if="!visibleSections.work"
+          class="fa-solid fa-angles-down section-cue-icon"
+        />
       </h1>
-      <transition name="slide-fade-left">
-        <div v-if="showElement && isLeft" class="work-experience-1">
+
+      <transition name="work-left">
+        <div v-if="visibleSections.work" class="work-experience-1">
           <div class="work-content">
             <h3>
               <i class="fa-solid fa-briefcase" />&nbsp; Fu Chen Industrial Co.,
@@ -61,165 +51,255 @@
             <p class="position">
               <b>Engineer, Department of Information Technology</b>
             </p>
-            <p class="details">
-              ◇ Updated internal systems by transforming old DB Tools into
-              web-based systems.<br /><br />
-              ◇ Set up local development environments with
-              <b>WampServer</b>.<br /><br />
-              ◇ Developed the frontend using <b>HTML</b>, <b>CSS3</b>,
-              <b>JQuery</b>, <b>JavaScript</b>, focusing on responsive design
-              and user-friendly interfaces.<br /><br />
-              ◇ Engineered the backend with <b>MySQL</b>, utilizing
-              <b>phpMyAdmin</b> for efficient database management and
-              maintenance.
-            </p>
+            <ul class="details-list">
+              <li>
+                Updated legacy internal tools by converting DB Tools workflows
+                into web-based systems.
+              </li>
+              <li>
+                Set up and maintained local development environments with
+                <b>WampServer</b>.
+              </li>
+              <li>
+                Built and maintained frontend interfaces using <b>HTML</b>,
+                <b>CSS</b>, <b>jQuery</b>, and <b>JavaScript</b>.
+              </li>
+              <li>
+                Supported backend data operations and database maintenance with
+                <b>MySQL</b> and <b>phpMyAdmin</b>.
+              </li>
+            </ul>
           </div>
         </div>
       </transition>
-      <transition name="slide-fade-right">
-        <div v-if="showElement && isRight" class="work-experience-2">
+
+      <transition name="work-right">
+        <div v-if="visibleSections.work" class="work-experience-2">
           <h3><i class="fa-solid fa-briefcase" />&nbsp; CTBC Bank</h3>
           <p class="duration">Feb 2022 - June 2022</p>
           <p class="position">
             <b>Intern, Department of Testing and Development</b>
           </p>
-          <i class="fa-solid fa-caret-right" />&nbsp;
-          <b>Bulletin Board System</b>
-          <p class="details">
-            ◆ Developed using Eclipse with
-            <b>Model-View-Controller (MVC)</b> architecture and
-            <b>Spring Framework</b>.<br /><br />
-            ◆ Frontend Implementation：Utilized <b>JSP</b>, <b>CSS</b>,
-            <b>JavaScript</b> to create dynamic user interfaces.<br /><br />
-            ◆ Backend Development：Built with <b>Java</b> and <b>MySQL</b>,
-            employing <b>DBeaver</b> for efficient database management, ensuring
-            smooth data operations and maintenance.
+          <p class="project-title">Bulletin Board System</p>
+          <ul class="details-list">
+            <li>
+              Supported development and testing tasks for internal systems in
+              <b>Eclipse</b> using <b>MVC</b> architecture and the
+              <b>Spring Framework</b>.
+            </li>
+            <li>
+              Implemented interface features with <b>JSP</b>, <b>CSS</b>, and
+              <b>JavaScript</b>.
+            </li>
+            <li>
+              Assisted backend development and database operations with
+              <b>Java</b>, <b>MySQL</b>, and <b>DBeaver</b>.
+            </li>
+          </ul>
+
+          <p class="project-title">
+            Process Automation - Monthly Accounting Report
           </p>
-          <i class="fa-solid fa-caret-right" />&nbsp;
-          <b>Process Automation - Monthly Accounting Report Developed</b>
-          <p class="details">
-            ◆ Developed using <b>Nice RPA</b> with <b>JavaScript</b>：Automated
-            the process of generating and sending monthly accounting reports,
-            significantly improving workflow effeciency.
-          </p>
+          <ul class="details-list">
+            <li>
+              Developed an automation workflow with <b>Nice RPA</b> and
+              <b>JavaScript</b> to generate and send monthly accounting reports.
+            </li>
+          </ul>
         </div>
       </transition>
-      <!-- Education -->
-      <h1 style="margin-top: 50px">
-        <transition name="slide-up"
-          ><i
-            v-if="!showElement && showArrows"
-            class="fa-solid fa-angles-down" /></transition
-        >&nbsp; EDUCATION &nbsp;<transition name="slide-up"
-          ><i v-if="!showElement && showArrows" class="fa-solid fa-angles-down"
-        /></transition>
+    </div>
+
+    <div ref="educationSection" class="about-section">
+      <h1 ref="educationTitle" class="section-title section-title-collapsible">
+        <i
+          v-if="!visibleSections.education"
+          class="fa-solid fa-angles-down section-cue-icon"
+        />
+        <span>EDUCATION</span>
+        <i
+          v-if="!visibleSections.education"
+          class="fa-solid fa-angles-down section-cue-icon"
+        />
       </h1>
-      <transition :duration="550" name="nested">
-        <div v-if="showEducation" class="education-container outer">
-          <div class="inner">
+
+      <transition name="education-shell">
+        <div v-if="visibleSections.education" class="education-container">
+          <div class="inner education-inner">
             <h3>
-              <i class="fa-solid fa-graduation-cap" /> Fu Jen Catholic
-              University
+              <i class="fa-solid fa-graduation-cap" /> New York University
+            </h3>
+            <p class="duration">Sep 2025 - Present</p>
+            <p class="position"><b>Master of Science in Games for Learning</b></p>
+            <p class="details">
+              Focused on educational technology, game-based learning, and the
+              design of interactive learning experiences.
+            </p>
+
+            <h3 class="education-item">
+              <i class="fa-solid fa-graduation-cap" /> Fu Jen Catholic University
             </h3>
             <p class="duration">Sep 2018 - June 2022</p>
             <p class="position">
-              <b
-                >Bachelor of Business Administration in Information
-                Management</b
-              >
+              <b>Bachelor of Business Administration in Information Management</b>
             </p>
-            <p class="details">
-              <i class="fa-solid fa-medal" /> Fu Jen Catholic University
-              Department of Information Management - Web Programming <br />
-              <b style="margin-left: 20px">Third Place </b><br /><br />
-              <i class="fa-solid fa-medal" /> Fu Jen Catholic University,
-              Department of Information Management <br />
-              <b style="margin-left: 20px"
-                >Certificate of Merit, Outstanding performance in Information
-                System project </b
-              ><br /><br />
-              <i class="fa-solid fa-medal" /> Workforce Development Agency
-              <br />
-              <b style="margin-left: 20px">Certificate of Participation</b>
-            </p>
+            <ul class="details-list">
+              <li>Third Place, Web Programming Competition</li>
+              <li>
+                Certificate of Merit, Outstanding Performance in Information
+                System Project
+              </li>
+              <li>Certificate of Participation, Workforce Development Agency</li>
+            </ul>
           </div>
         </div>
       </transition>
-    </section>
+    </div>
+  </section>
 </template>
+
 <script>
 import TypeIt from "typeit";
+
 export default {
   data() {
     return {
-      showElement: false,
-      isLeft: true,
-      isRight: false,
-      showArrows: false,
-      showEducation: false,
+      visibleSections: {
+        intro: false,
+        work: false,
+        education: false,
+      },
+      sectionObserver: null,
+      topCollapseOffset: 20,
     };
   },
   mounted() {
-    //標題打字效果
+    this.visibleSections.intro = true;
+
     new TypeIt("#Title", {
       strings: "Welcome to my personal portfolio",
       speed: 60,
-      afterComplete: function (instance) {
+      afterComplete: (instance) => {
         instance.destroy();
       },
     }).go();
 
-    //中標箭頭效果
-    setTimeout(() => {
-      this.showArrows = true;
-    }, 3000);
+    this.sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || window.scrollY <= this.topCollapseOffset) {
+            return;
+          }
 
-    window.addEventListener("scroll", this.handleScroll);
+          const sectionName = entry.target.dataset.section;
+          if (sectionName) {
+            this.openVisibleSection(`${sectionName}Title`, sectionName);
+          }
+        });
+      },
+      {
+        rootMargin: "0px 0px -12% 0px",
+        threshold: 0.22,
+      }
+    );
+
+    this.observeSection("workTitle", "work");
+    this.observeSection("educationTitle", "education");
+    window.addEventListener("scroll", this.handleTopCollapse, {
+      passive: true,
+    });
   },
-  beforeDestroy() {
-    //組件銷毀前移除事件監聽
-    window.removeEventListener("scroll", this.handleScroll);
+  beforeUnmount() {
+    if (this.sectionObserver) {
+      this.sectionObserver.disconnect();
+    }
+
+    window.removeEventListener("scroll", this.handleTopCollapse);
   },
   methods: {
-    handleScroll() {
-      const scrollPosition = window.scrollY;
-      console.log("Current scroll position:", scrollPosition);
+    observeSection(refName, sectionName) {
+      const section = this.$refs[refName];
+      if (!section) return;
 
-      // 當滾動位置到點時顯示
-      if (scrollPosition > 200) {
-        this.showElement = true;
-        this.isLeft = true;
-        this.isRight = true;
-        // console.log("show it");
-      } else {
-        this.showElement = false;
+      section.dataset.section = sectionName;
+      this.sectionObserver.observe(section);
+    },
+    handleTopCollapse() {
+      if (window.scrollY > this.topCollapseOffset) {
+        this.openVisibleSection("workTitle", "work");
+        this.openVisibleSection("educationTitle", "education");
+        return;
       }
 
-      if (scrollPosition > 790) {
-        this.showEducation = true;
-      } else {
-        this.showEducation = false;
+      this.visibleSections.work = false;
+      this.visibleSections.education = false;
+    },
+    openVisibleSection(refName, sectionName) {
+      const sectionTitle = this.$refs[refName];
+      if (!sectionTitle || this.visibleSections[sectionName]) return;
+
+      const rect = sectionTitle.getBoundingClientRect();
+      const triggerRatio = sectionName === "education" ? 0.65 : 0.75;
+      const triggerPoint = window.innerHeight * triggerRatio;
+      const nearPageBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 24;
+      const titleIsVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+
+      if (
+        (rect.top <= triggerPoint && rect.bottom >= 0) ||
+        (sectionName === "education" && nearPageBottom && titleIsVisible)
+      ) {
+        this.visibleSections[sectionName] = true;
       }
     },
   },
 };
 </script>
+
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
-/* 隱藏滾動條 */
 
 .About {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
-  min-height: 1600px;
+  min-height: 100vh;
+  padding-bottom: 72px;
 }
+
 .About h1 {
   justify-self: center;
   text-shadow: 0 0 3px #aaa;
 }
 
+.about-title {
+  min-height: 44px;
+  margin-bottom: 24px;
+}
+
+.about-section {
+  scroll-margin-top: 80px;
+  margin-top: 96px;
+}
+
+.section-title {
+  margin: 0 10px 32px;
+  text-align: center;
+}
+
+.section-title-collapsible {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.section-cue-icon {
+  font-size: 0.9em;
+}
+
 .duration {
-  justify-self: right;
+  text-align: right;
   font-size: 12px;
   margin-top: -27px;
 }
@@ -230,56 +310,74 @@ export default {
 }
 
 .details {
-  padding: 12px;
   margin-top: -10px;
   font-size: 15px;
+  line-height: 1.8;
 }
 
 .preface-container {
   background: rgb(234, 215, 196, 0.6);
   border-radius: 8px;
-  padding: 8px;
+  padding: 28px 36px;
   margin: 10px;
+  line-height: 1.8;
 }
 
-.slide-up-enter-active,
-.slide-up-leave-active {
-  transition: all 0.8s ease-out;
-}
-
-.slide-up-enter-from {
+.preface-container.reveal-block {
   opacity: 0;
-  transform: translateY(-30px);
+  transform: translateY(14px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease;
 }
 
-/* transition */
-/* right */
-.slide-fade-right-enter-active {
-  transition: all 0.7s ease-out;
+.preface-container.reveal-block.is-visible {
+  opacity: 1;
+  transform: none;
 }
 
-.slide-fade-right-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+.work-left-enter-active,
+.work-left-leave-active,
+.work-right-enter-active,
+.work-right-leave-active {
+  transition:
+    opacity 0.72s ease,
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.slide-fade-right-enter-from,
-.slide-fade-right-leave-to {
-  transform: translateX(40px);
+.work-left-enter-from,
+.work-left-leave-to {
+  opacity: 0;
+  transform: translateX(-48px);
+}
+
+.work-right-enter-from,
+.work-right-leave-to {
+  opacity: 0;
+  transform: translateX(48px);
+}
+
+.education-shell-enter-active,
+.education-shell-leave-active {
+  transition: opacity 0.6s ease;
+}
+
+.education-shell-enter-from,
+.education-shell-leave-to {
   opacity: 0;
 }
-/* left */
-.slide-fade-left-enter-active {
-  transition: all 0.7s ease-out;
+
+.education-shell-enter-active .education-inner,
+.education-shell-leave-active .education-inner {
+  transition:
+    opacity 0.72s ease,
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.slide-fade-left-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-left-enter-from,
-.slide-fade-left-leave-to {
-  transform: translateX(-40px);
+.education-shell-enter-from .education-inner,
+.education-shell-leave-to .education-inner {
   opacity: 0;
+  transform: translateX(42px);
 }
 
 .work-experience-1 {
@@ -289,55 +387,79 @@ export default {
   color: #fff;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  padding: 8px;
+  padding: 26px 30px;
   margin: 10px;
 }
+
 .work-experience-2 {
   justify-self: right;
   width: 70%;
-  height: autox;
+  height: auto;
   background: rgb(234, 215, 196, 0.6);
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
-  padding: 8px;
-  margin: 10px;
+  padding: 26px 30px;
+  margin: 24px 10px 10px;
 }
+
 .education-container {
   background: rgb(106, 62, 55, 0.6);
   color: #fff;
   border-radius: 8px;
-  padding: 8px;
+  padding: 28px 36px;
   margin: 10px;
 }
 
-.nested-enter-active,
-.nested-leave-active {
-  transition: all 0.3s ease-in-out;
-}
-/* delay leave of parent element */
-.nested-leave-active {
-  transition-delay: 0.25s;
+.details-list {
+  margin: 12px 0 0 0;
+  padding-left: 20px;
+  font-size: 15px;
+  line-height: 1.8;
 }
 
-.nested-enter-from,
-.nested-leave-to {
-  transform: translateY(30px);
-  opacity: 0;
+.details-list li {
+  margin-bottom: 12px;
 }
 
-/* we can also transition nested elements using nested selectors */
-.nested-enter-active .inner,
-.nested-leave-active .inner {
-  transition: all 0.3s ease-in-out;
-}
-/* delay enter of nested element */
-.nested-enter-active .inner {
-  transition-delay: 0.25s;
+.project-title {
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 700;
 }
 
-.nested-enter-from .inner,
-.nested-leave-to .inner {
-  transform: translateX(30px);
-  opacity: 0.001;
+.education-item {
+  margin-top: 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preface-container.reveal-block,
+  .work-left-enter-active,
+  .work-left-leave-active,
+  .work-right-enter-active,
+  .work-right-leave-active,
+  .education-shell-enter-active,
+  .education-shell-leave-active,
+  .education-shell-enter-active .education-inner,
+  .education-shell-leave-active .education-inner {
+    animation: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .preface-container,
+  .education-container,
+  .work-experience-1,
+  .work-experience-2 {
+    width: auto;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .duration {
+    text-align: left;
+    margin-top: 0;
+  }
 }
 </style>

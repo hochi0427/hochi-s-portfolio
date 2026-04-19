@@ -93,8 +93,8 @@ const getGrids = function (col) {
   return grids;
 };
 
-import Tile from "@/components/Tile.vue";
-import PuzzleCover from "@/components/PuzzleCover.vue";
+import Tile from "../components/Tile.vue";
+import PuzzleCover from "../components/PuzzleCover.vue";
 
 export default {
   components: {

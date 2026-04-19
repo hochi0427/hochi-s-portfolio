@@ -6,7 +6,7 @@
 body {
   padding: 0;
   margin: 0;
-  margin-top: 150px;
+  margin-top: 88px;
   background: white;
   overflow-y: scroll;
 }
@@ -57,12 +57,12 @@ a:visited {
   left: 0;
   right: 0;
   margin-top: 0;
-  padding: 30px;
+  padding: 14px 30px;
   background: #ead7c4;
   color: white;
   display: flex;
   align-items: center;
-  border-bottom: 5px solid #6a3e37;
+  border-bottom: 3px solid #6a3e37;
   z-index: 2;
 }
 #nav a {
@@ -78,7 +78,7 @@ a:visited {
 }
 #logo {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   opacity: 1 !important;
 }
 
@@ -188,4 +188,3 @@ a {
   display: inline-block;
   margin-bottom: 15px;
 }
-

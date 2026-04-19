@@ -91,6 +91,33 @@
           "description": ""
         }
       ]
+    },
+    {
+        "name": "Deadline Simulator",
+        "slug": "vignette",
+        "image": "VignetteLogo.png",
+        "id": 3,
+        "subLabel": "Vignette Game",
+        "description": "A browser-based typing game that simulates the pressure and fading focus of an all-nighter.",
+        "demonstrates": []
+    },
+    {
+        "name": "Hunting Rabbit",
+        "slug": "2d-unity-game",
+        "image": "Unity2DLogo.png",
+        "id": 4,
+        "subLabel": "Unity 2D",
+        "description": "",
+        "demonstrates": []
+    },
+    {
+        "name": "Weight Game",
+        "slug": "3d-unity-game",
+        "image": "Unity3DLogo.png",
+        "id": 5,
+        "subLabel": "Unity 3D",
+        "description": "",
+        "demonstrates": []
     }
   ]
 }

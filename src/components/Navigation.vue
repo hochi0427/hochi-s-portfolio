@@ -6,11 +6,11 @@
     <router-link
       v-for="project in projects"
       :key="project.id"
-      :to="{ name: 'project', params: { id: project.id, slug: project.slug } }"
+      :to="getProjectRoute(project)"
     >
       {{ project.name }}
     </router-link>
-    <router-link to="/puzzlegame">Puzzle Game</router-link>
+    
   </div>
 </template>
 
@@ -22,12 +22,39 @@
 </style>
 
 <script>
-import sourceData from "@/data.json";
+import sourceData from "../data.json";
 export default {
   data() {
     return {
-      projects: sourceData.projects,
+      projects: this.sortMusleepLast(
+        sourceData.projects.filter((project) => project.slug !== "venology")
+      ),
     };
+  },
+  methods: {
+    getProjectRoute(project) {
+      if (project.slug === "vignette") {
+        return { name: "Vignette" };
+      }
+      if (project.slug === "2d-unity-game") {
+        return { name: "GameMod" };
+      }
+      if (project.slug === "3d-unity-game") {
+        return { name: "WeightGame" };
+      }
+
+      return {
+        name: "project",
+        params: { id: project.id, slug: project.slug },
+      };
+    },
+    sortMusleepLast(projects) {
+      return [...projects].sort((current, next) => {
+        if (current.slug === "musleep") return 1;
+        if (next.slug === "musleep") return -1;
+        return 0;
+      });
+    },
   },
 };
 </script>

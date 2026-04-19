@@ -62,13 +62,13 @@
 </template>
 
 <script>
-import sourceData from "@/data.json";
-import SystemBg from "@/components/SystemBg.vue";
-import SystemBgVenology from "@/components/SystemBgVenology.vue";
-import MusicTags from "@/components/MusicTags.vue";
-import UsersCF from "@/components/UsersCF.vue";
-import SystemDisplay from "@/components/SystemDisplay.vue";
-import SystemDisplayVenology from "@/components/SystemDisplayVenology.vue";
+import sourceData from "../data.json";
+import SystemBg from "../components/SystemBg.vue";
+import SystemBgVenology from "../components/SystemBgVenology.vue";
+import MusicTags from "../components/MusicTags.vue";
+import UsersCF from "../components/UsersCF.vue";
+import SystemDisplay from "../components/SystemDisplay.vue";
+import SystemDisplayVenology from "../components/SystemDisplayVenology.vue";
 
 export default {
   components: {
