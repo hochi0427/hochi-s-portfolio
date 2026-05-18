@@ -93,6 +93,16 @@
       ]
     },
     {
+        "name": "Math Tactics",
+        "slug": "math-tactics",
+        "image": "MathTacticsLogo.png",
+        "placeholder": "Math Tactics",
+        "id": 6,
+        "subLabel": "Game-Based Learning Project",
+        "description": "A real-time multiplayer math game focused on arithmetic practice, expression-building, and classroom interaction.",
+        "demonstrates": []
+    },
+    {
         "name": "Deadline Simulator",
         "slug": "vignette",
         "image": "VignetteLogo.png",

@@ -36,6 +36,9 @@ export default {
       if (project.slug === "vignette") {
         return { name: "Vignette" };
       }
+      if (project.slug === "math-tactics") {
+        return { name: "MathTactics" };
+      }
       if (project.slug === "2d-unity-game") {
         return { name: "GameMod" };
       }

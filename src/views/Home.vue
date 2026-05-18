@@ -57,10 +57,22 @@
             :to="getProjectRoute(project)"
           >
             <img
+              v-if="project.image"
               class="project-image"
               :src="`/hochi-s-portfolio/images/${project.image}`"
               :alt="project.name"
             />
+            <div
+              v-else
+              class="project-placeholder"
+              role="img"
+              :aria-label="`${project.name} project image placeholder`"
+            >
+              <span class="project-placeholder-mark">
+                {{ project.placeholder || project.name }}
+              </span>
+              <span class="project-placeholder-symbols">+ - x =</span>
+            </div>
             <div class="project-card-content">
               <h2>{{ project.name }}</h2>
               <p>{{ project.subLabel }}</p>
@@ -81,7 +93,7 @@ export default {
         (project) =>
           !["venology", "2d-unity-game", "3d-unity-game"].includes(project.slug)
       ),
-      unityProjects: [
+      customProjects: [
         {
           key: "2d-unity-game",
           name: "Hunting Rabbit",
@@ -108,7 +120,7 @@ export default {
           ...project,
           key: project.id,
         })),
-        ...this.unityProjects,
+        ...this.customProjects,
       ]);
     },
   },
@@ -120,6 +132,10 @@ export default {
 
       if (project.slug === "vignette") {
         return { name: "Vignette" };
+      }
+
+      if (project.slug === "math-tactics") {
+        return { name: "MathTactics" };
       }
 
       return {
@@ -290,14 +306,30 @@ export default {
 
 .project-placeholder {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 12px;
   background:
-    linear-gradient(rgba(106, 62, 55, 0.22), rgba(106, 62, 55, 0.22)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0)),
+    radial-gradient(circle at 24% 22%, rgba(255, 255, 255, 0.8) 0 7%, transparent 8%),
     rgb(234, 215, 196);
   color: #6a3e37;
   font-size: 1.5rem;
   font-weight: 700;
+}
+
+.project-placeholder-mark {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(106, 62, 55, 0.12);
+}
+
+.project-placeholder-symbols {
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0.72;
 }
 
 .project-card-content {

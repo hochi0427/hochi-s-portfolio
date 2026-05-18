@@ -6,6 +6,7 @@ import Vignette from "../views/Vignette.vue";
 import sourceData from "../data.json";
 import GameMod from "../views/GameMod.vue";
 import WeightGame from "../views/WeightGame.vue";
+import MathTactics from "../views/MathTactics.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
@@ -61,6 +62,11 @@ const routes = [
     path: "/projects/weight-game",
     name: "WeightGame",
     component: WeightGame,
+  },
+  {
+    path: "/projects/math-tactics",
+    name: "MathTactics",
+    component: MathTactics,
   },
   {
     path: "/:pathMatch(.*)*",
