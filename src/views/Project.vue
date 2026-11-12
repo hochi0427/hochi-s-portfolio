@@ -45,9 +45,9 @@
 <script>
 // Title
 import sourceData from "../data.json";
-// import GoBack from "../components/GoBack.vue";
-import DemonstrateCard from "../components/DemonstrateCard.vue";
-import Collapse from "../components/Collapse.vue";
+// import GoBack from "../components/layout/GoBack.vue";
+import DemonstrateCard from "../components/projects/DemonstrateCard.vue";
+import Collapse from "../components/common/Collapse.vue";
 export default {
   props: {
     id: { type: Number, required: true },

@@ -7,9 +7,26 @@ import sourceData from "../data.json";
 import GameMod from "../views/GameMod.vue";
 import WeightGame from "../views/WeightGame.vue";
 import MathTactics from "../views/MathTactics.vue";
+import Education from "../views/Education.vue";
+import WorkExperience from "../views/WorkExperience.vue";
 
 const routes = [
   { path: "/", name: "Home", component: Home },
+  {
+    path: "/research-journal",
+    name: "ResearchTransition",
+    component: () => import("../views/ResearchTransition.vue"),
+  },
+  {
+    path: "/game-play",
+    name: "GamePlay",
+    component: () => import("../views/GamePlay.vue"),
+  },
+  {
+    path: "/musleep",
+    name: "Musleep",
+    component: () => import("../views/Musleep.vue"),
+  },
   {
     path: "/about",
     name: "About",
@@ -64,15 +81,46 @@ const routes = [
     component: WeightGame,
   },
   {
+    path: "/projects/pattern-cube",
+    name: "PatternCube",
+    component: () => import("../views/PatternCube.vue"),
+  },
+  {
+    path: "/projects/kingdom-dilemma",
+    name: "KingdomDilemma",
+    component: () => import("../views/KingdomDilemma.vue"),
+  },
+  {
+    path: "/projects/rhythm-grove",
+    name: "RhythmGrove",
+    component: () => import("../views/RhythmGrove.vue"),
+  },
+  {
+    path: "/projects/mutation-dog",
+    name: "MutationDog",
+    component: () => import("../views/MutationDog.vue"),
+  },
+  {
     path: "/projects/math-tactics",
     name: "MathTactics",
     component: MathTactics,
+  },
+  {
+    path: "/education",
+    name: "Education",
+    component: Education,
+  },
+  {
+    path: "/work-experience",
+    name: "WorkExperience",
+    component: WorkExperience,
   },
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: () => import("../views/NotFound.vue"),
   },
+
 ];
 
 const router = createRouter({

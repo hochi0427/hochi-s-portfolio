@@ -63,12 +63,12 @@
 
 <script>
 import sourceData from "../data.json";
-import SystemBg from "../components/SystemBg.vue";
-import SystemBgVenology from "../components/SystemBgVenology.vue";
-import MusicTags from "../components/MusicTags.vue";
-import UsersCF from "../components/UsersCF.vue";
-import SystemDisplay from "../components/SystemDisplay.vue";
-import SystemDisplayVenology from "../components/SystemDisplayVenology.vue";
+import SystemBg from "../components/projects/musleep/SystemBg.vue";
+import SystemBgVenology from "../components/projects/venology/SystemBgVenology.vue";
+import MusicTags from "../components/projects/MusicTags.vue";
+import UsersCF from "../components/projects/musleep/UsersCF.vue";
+import SystemDisplay from "../components/projects/musleep/SystemDisplay.vue";
+import SystemDisplayVenology from "../components/projects/venology/SystemDisplayVenology.vue";
 
 export default {
   components: {

@@ -22,7 +22,7 @@
 </style>
 
 <script>
-import sourceData from "../data.json";
+import sourceData from "../../data.json";
 export default {
   data() {
     return {
