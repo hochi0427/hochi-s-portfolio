@@ -5,7 +5,7 @@
       <section v-if="guideOpen" :id="panelId" class="compass-guide__panel" aria-labelledby="compass-title">
         <h2 id="compass-title">How to Explore</h2>
         <h3>Your Adventure Starts Here!</h3>
-        <p>Try pressing the buttons on the screen to discover different projects. Each key has something new to explore!</p>
+        <p>Try pressing the buttons on the controller to discover different projects. Each key unlocks a new experience!</p>
         <button class="guide-action" type="button" @click="startTutorial">Show Me How <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
       </section>
     </Transition>
@@ -17,9 +17,9 @@
         <svg class="key-tutorial__shade" :viewBox="`0 0 ${geometry.width} ${geometry.height}`" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path :d="shadePath" fill-rule="evenodd" @pointerdown.stop.prevent @click.stop @wheel.prevent /></svg>
         <div class="key-tutorial__ring" :style="ringStyle" aria-hidden="true"><img class="key-tutorial__hand" :src="`${base}images/pixel-point-hand.svg`" alt="" /></div>
         <section ref="instruction" class="key-tutorial__instruction" :style="instructionStyle">
-          <button ref="closeButton" class="close-tutorial" type="button" aria-label="Close tutorial" title="Close tutorial" @click="finishTutorial(true)"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
           <h2 :id="tutorialId">Press a key to explore!</h2>
           <p>Each key unlocks a different project.</p>
+          <button ref="closeButton" class="skip-tutorial" type="button" @click="finishTutorial(true)">Skip tutorial</button>
         </section>
       </div>
     </Transition>
@@ -44,7 +44,7 @@ function rememberTutorial() {
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useId, watch } from "vue";
 
-const props = defineProps({ anchor: { type: Object, default: null }, controllerElement: { default: null }, targetIndex: { type: Number, required: true } });
+const props = defineProps({ autoStart: { type: Boolean, default: true }, anchor: { type: Object, default: null }, controllerElement: { default: null }, targetIndex: { type: Number, required: true } });
 const emit = defineEmits(["tutorial-change"]);
 const base = import.meta.env.BASE_URL;
 const panelId = useId();
@@ -54,11 +54,11 @@ const compassButton = ref(null);
 const closeButton = ref(null);
 const instruction = ref(null);
 const guideOpen = ref(false);
-const requested = ref(!hasSeenTutorial());
+const requested = ref(props.autoStart && !hasSeenTutorial());
+if (requested.value) rememberTutorial();
 const geometry = ref(null);
 const visible = computed(() => requested.value && geometry.value !== null);
 let layoutFrame = null;
-let autoCloseTimer;
 let resizeObserver;
 let prepared = false;
 let disposed = false;
@@ -85,7 +85,7 @@ function updateLayout() {
   const width = window.innerWidth;
   const height = window.innerHeight;
   const copyWidth = Math.min(300, width - 32);
-  const copyHeight = instruction.value?.offsetHeight || 148;
+  const copyHeight = instruction.value?.offsetHeight || 170;
   const below = y + radius + 24;
   const top = below + copyHeight <= height - 16 ? below : y - radius - copyHeight - 24;
   geometry.value = { x, y, radius, width, height, buttonId: button.id, copyWidth, copyLeft: Math.max(16, Math.min(width - copyWidth - 16, x - copyWidth / 2)), copyTop: Math.max(16, Math.min(height - copyHeight - 16, top)) };
@@ -107,14 +107,13 @@ function startTutorial() {
 }
 function finishTutorial(returnToCompass = false) {
   if (!requested.value) return;
-  window.clearTimeout(autoCloseTimer);
   rememberTutorial();
   requested.value = false;
   geometry.value = null;
   if (returnToCompass) nextTick(() => compassButton.value?.focus({ preventScroll: true }));
 }
 function completeFromKey(index) {
-  if (visible.value && index === props.targetIndex) finishTutorial();
+  if (requested.value && Number.isInteger(index) && index >= 0) finishTutorial();
 }
 defineExpose({ completeFromKey });
 function closeGuide() {
@@ -134,13 +133,13 @@ function handleKeydown(event) {
     next?.focus({ preventScroll: true });
   }
 }
+// Notify the parent while waiting for the actual 3D key to become available as well.
+watch(requested, value => emit("tutorial-change", value), { immediate: true, flush: "sync" });
 watch(visible, async value => {
-  window.clearTimeout(autoCloseTimer);
-  emit("tutorial-change", value);
   if (!value && instruction.value) resizeObserver?.unobserve(instruction.value);
   if (value) {
-    autoCloseTimer = window.setTimeout(() => finishTutorial(document.activeElement === closeButton.value), 4000);
     await nextTick();
+    if (disposed || !visible.value) return;
     if (instruction.value) resizeObserver?.observe(instruction.value);
     scheduleLayout();
   }
@@ -162,7 +161,6 @@ onMounted(() => {
 });
 onBeforeUnmount(() => {
   disposed = true;
-  window.clearTimeout(autoCloseTimer);
   if (layoutFrame !== null) cancelAnimationFrame(layoutFrame);
   resizeObserver?.disconnect();
   window.removeEventListener("resize", scheduleLayout);
@@ -192,8 +190,8 @@ onBeforeUnmount(() => {
 .key-tutorial__instruction { position: absolute; padding: 24px 32px; border: 1px solid rgba(255, 255, 255, .6); border-radius: 12px; background: rgba(255, 255, 255, .85); box-shadow: 0 8px 24px rgba(42, 83, 89, .12); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #32545a; text-align: center; pointer-events: auto; }
 .key-tutorial__instruction h2 { margin: 0 0 8px; font: 600 17px/1.4 Arial, Helvetica, sans-serif; }
 .key-tutorial__instruction p { margin: 0; font-size: 13px; line-height: 1.6; }
-.close-tutorial { position: absolute; top: 5px; right: 5px; display: grid; place-items: center; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 4px; background: transparent; color: #61756c; font-size: 16px; cursor: pointer; }
-.close-tutorial:hover { color: #254c60; }
+.skip-tutorial { margin-top: 14px; padding: 6px 10px; border: 1px solid #61756c55; border-radius: 4px; background: transparent; color: #32545a; font: inherit; font-size: 12px; cursor: pointer; }
+.skip-tutorial:hover { background: #ffffff66; }
 button:focus-visible { outline: 3px solid #38859a; outline-offset: 4px; }
 .guide-fade-enter-active, .guide-fade-leave-active { transition: opacity 180ms ease; }
 .guide-fade-enter-from, .guide-fade-leave-to { opacity: 0; }

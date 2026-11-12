@@ -59,7 +59,7 @@
               >
                 <span class="card-media">
                   <video
-                    v-if="card.video && !failedImages[`${card.id}Video`] && !reducedMotion && !flipped.includes(card.id)"
+                    v-if="card.video && !failedImages[`${card.id}Video`]"
                     :src="asset(card.video)" :poster="asset(card.image)"
                     autoplay muted loop playsinline preload="metadata" aria-hidden="true"
                     @error="failedImages[`${card.id}Video`] = true"

@@ -1,5 +1,5 @@
 <template>
-  <main class="game-play-page">
+  <main class="game-play-page" @keydown="handleChannelKey">
     <div class="ocean-decoration" aria-hidden="true">
       <img class="ocean-cloud" :src="`${base}world/ocean/cloud.webp`" alt="" />
       <img class="ocean-wave" :src="`${base}world/ocean/wave-02.webp`" alt="" />
@@ -14,7 +14,7 @@
           <path class="cable-highlight" :d="cablePath" />
         </svg>
         <section ref="controllerArea" class="controller-area" aria-label="Interactive game controller">
-          <GameController :projects="projects" :selected="selected" :guide-key="tutorialKey" :tutorial-key="tutorialActive ? tutorialKey : null" @select="selectProject" @key-anchor="tutorialAnchor = $event" @cable-anchor="updateCableAnchor" />
+          <GameController :projects="controllerChannels" :selected="isIntroduction ? projects.length : selected" :guide-key="tutorialKey" :tutorial-key="tutorialActive ? tutorialKey : null" @select="selectProject" @key-anchor="tutorialAnchor = $event" @cable-anchor="updateCableAnchor" />
           <div class="controller-label"><span><i class="fa-solid fa-circle" aria-hidden="true"></i> Connected</span></div>
         </section>
         <section class="monitor-area" :inert="tutorialActive" aria-label="Selected game project">
@@ -24,35 +24,48 @@
               <div id="game-monitor-screen" class="monitor-screen" :class="{ 'is-switching': isSwitching }" role="group" :aria-label="poweredOn ? 'Game project display' : 'Monitor powered off'">
                 <span v-if="isSwitching && poweredOn && !reducedMotion" :key="selected" class="crt-channel-scanlines" aria-hidden="true"></span>
                 <Transition name="channel" mode="out-in" appear @after-enter="channelEntered">
-                  <article :key="selected" :data-project="selected" class="project-screen" :aria-hidden="!poweredOn" :inert="!poweredOn" :aria-live="poweredOn ? 'polite' : 'off'" aria-atomic="true">
-                    <div class="screen-status"><span>CH {{ String(selected + 1).padStart(2, '0') }}</span><span>{{ project.category }}</span></div>
-                    <div class="game-preview">
-                      <div v-if="project.preview === 'rabbit'" class="rabbit-preview">
-                        <div class="rabbit-runner">
-                          <span class="rabbit-shadow" aria-hidden="true"></span>
-                          <svg class="pixel-rabbit" viewBox="0 0 36 36" role="img" aria-label="Pixel-art rabbit hopping forward" focusable="false">
-                            <defs><filter id="bunny-sheet-transparency" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  20 0 0 0 -1" /></filter></defs>
-                            <g v-for="(frame, index) in bunnyFrames" :key="index" class="rabbit-frame" :style="{ '--frame-delay': `${index * 60}ms` }">
-                              <svg :x="Math.round((36 - frame.width) / 2)" :y="36 - frame.height" :width="frame.width" :height="frame.height" :viewBox="`${frame.x} ${frame.y} ${frame.width} ${frame.height}`" overflow="hidden">
-                                <image :href="`${base}images/bunnysheet.png`" width="321" height="327" filter="url(#bunny-sheet-transparency)" />
-                              </svg>
-                            </g>
-                          </svg>
+                  <article :key="selected" :data-project="selected" class="project-screen" :class="{ 'introduction-screen': isIntroduction }" :aria-hidden="!poweredOn" :inert="!poweredOn" :aria-live="poweredOn ? 'polite' : 'off'" aria-atomic="true">
+                    <template v-if="isIntroduction">
+                      <div class="screen-status"><span>CH 00 — INTRODUCTION</span></div>
+                      <div class="introduction-copy">
+                        <p class="introduction-player"><i class="fa-solid fa-gamepad" aria-hidden="true"></i> PLAYER 01 / HOCHI</p>
+                        <h2>Welcome to My Playground!</h2>
+                        <p class="introduction-motto">Explore. Create. Learn.</p>
+                        <p>Over the past year in NYU's Games for Learning program, I've explored different ways to bring ideas to life through play.</p>
+                        <p>From digital games and game-based learning to tangible interactions, each project represents a new experiment in play and learning.</p>
+                      </div>
+                      <p class="introduction-next">Next up: Math Tactics <span aria-hidden="true">→</span></p>
+                    </template>
+                    <template v-else>
+                      <div class="screen-status"><span>CH {{ String(selected + 1).padStart(2, '0') }}</span><span>{{ project.category }}</span></div>
+                      <div class="game-preview">
+                        <div v-if="project.preview === 'rabbit'" class="rabbit-preview">
+                          <div class="rabbit-runner">
+                            <span class="rabbit-shadow" aria-hidden="true"></span>
+                            <svg class="pixel-rabbit" viewBox="0 0 36 36" role="img" aria-label="Pixel-art rabbit hopping forward" focusable="false">
+                              <defs><filter id="bunny-sheet-transparency" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  20 0 0 0 -1" /></filter></defs>
+                              <g v-for="(frame, index) in bunnyFrames" :key="index" class="rabbit-frame" :style="{ '--frame-delay': `${index * 60}ms` }">
+                                <svg :x="Math.round((36 - frame.width) / 2)" :y="36 - frame.height" :width="frame.width" :height="frame.height" :viewBox="`${frame.x} ${frame.y} ${frame.width} ${frame.height}`" overflow="hidden">
+                                  <image :href="`${base}images/bunnysheet.png`" width="321" height="327" filter="url(#bunny-sheet-transparency)" />
+                                </svg>
+                              </g>
+                            </svg>
+                          </div>
                         </div>
+                        <div v-else-if="project.preview === 'kingdom'" class="kingdom-preview">
+                          <img :src="`${base}images/KingdomDilemmaLogo.png`" alt="Kingdom Dilemma logo" />
+                          <span class="prototype-status">Prototype in Development</span>
+                        </div>
+                        <MutationDogCover v-else-if="project.preview === 'dog'" :paused="!poweredOn" />
+                        <img v-else-if="project.image && !failedPreviews[project.title]" :src="`${base}images/${project.image}`" :alt="`${project.title} preview`" :data-project-title="project.title" @error="failedPreviews[$event.target.dataset.projectTitle] = true" />
+                        <div v-else class="preview-placeholder"><i :class="project.icon" aria-hidden="true"></i><span>Preview coming soon</span></div>
                       </div>
-                      <div v-else-if="project.preview === 'kingdom'" class="kingdom-preview">
-                        <img :src="`${base}images/KingdomDilemmaLogo.png`" alt="Kingdom Dilemma logo" />
-                        <span class="prototype-status">Prototype in Development</span>
+                      <div class="project-copy">
+                        <h2>{{ project.title }}</h2>
+                        <p class="project-description"><span aria-hidden="true">{{ typedDescription }}</span><span class="sr-only">{{ project.description }}</span></p>
+                        <ul class="technology-tags" aria-label="Project technologies"><li v-for="technology in project.technologies" :key="technology">{{ technology }}</li></ul>
                       </div>
-                      <MutationDogCover v-else-if="project.preview === 'dog'" :paused="!poweredOn" />
-                      <img v-else-if="project.image && !failedPreviews[project.title]" :src="`${base}images/${project.image}`" :alt="`${project.title} preview`" :data-project-title="project.title" @error="failedPreviews[$event.target.dataset.projectTitle] = true" />
-                      <div v-else class="preview-placeholder"><i :class="project.icon" aria-hidden="true"></i><span>Preview coming soon</span></div>
-                    </div>
-                    <div class="project-copy">
-                      <h2>{{ project.title }}</h2>
-                      <p class="project-description"><span aria-hidden="true">{{ typedDescription }}</span><span class="sr-only">{{ project.description }}</span></p>
-                      <ul class="technology-tags" aria-label="Project technologies"><li v-for="technology in project.technologies" :key="technology">{{ technology }}</li></ul>
-                    </div>
+                    </template>
                   </article>
                 </Transition>
               </div>
@@ -69,6 +82,7 @@
                   <button v-else class="project-link" type="button" disabled>View Project <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></button>
                   <span v-if="poweredOn" class="pixel-pointer pixel-pointer--right" aria-hidden="true"><img :src="`${base}images/pixel-point-hand.svg`" alt="" /></span>
                 </div>
+                <span v-else-if="isIntroduction" class="channel-caption">CH 00</span>
                 <span v-else class="coming-soon">Project coming soon</span>
               </div>
               <div class="monitor-hardware" aria-hidden="true"><div class="speaker"></div><div class="monitor-dial"></div></div>
@@ -77,12 +91,13 @@
         </section>
       </div>
     </div>
-    <GamePlayGuide ref="compassGuide" :anchor="tutorialAnchor" :controller-element="controllerArea" :target-index="tutorialKey" @tutorial-change="tutorialActive = $event" />
+    <GamePlayGuide :auto-start="firstVisit" ref="compassGuide" :anchor="tutorialAnchor" :controller-element="controllerArea" :target-index="tutorialKey" @tutorial-change="handleTutorialChange" />
   </main>
 </template>
 
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { useGameChannels } from "../components/world/useGameChannels.js";
 import GameController from "../components/world/GameController.vue";
 import GamePlayGuide from "../components/world/GamePlayGuide.vue";
 import MutationDogCover from "../components/projects/MutationDogCover.vue";
@@ -94,13 +109,11 @@ const bunnyFrames = [
   [59, 83, 26, 28], [91, 82, 33, 28], [134, 84, 29, 25],
   [179, 84, 26, 25], [210, 84, 27, 22], [243, 84, 28, 19], [275, 84, 28, 19],
 ].map(([x, y, width, height]) => ({ x, y: 327 - y - height, width, height }));
-const selected = ref(0);
 const tutorialKey = 1;
 const tutorialAnchor = ref(null);
-const tutorialActive = ref(false);
 const compassGuide = ref(null);
 function selectProject(index) {
-  selected.value = index;
+  selectChannel(index === projects.length ? -1 : index);
   compassGuide.value?.completeFromKey(index);
 }
 const poweredOn = ref(true);
@@ -124,7 +137,8 @@ function stopDescriptionTyping() {
 }
 function startDescriptionTyping() {
   stopDescriptionTyping();
-  const description = project.value.description;
+  const description = project.value.description || "";
+  if (isIntroduction.value) { typedDescription.value = ""; return; }
   if (reducedMotion.value || !poweredOn.value) {
     typedDescription.value = description;
     return;
@@ -146,7 +160,7 @@ function updateMotionPreference() {
   reducedMotion.value = motionMedia.matches;
   if (reducedMotion.value) {
     stopDescriptionTyping();
-    typedDescription.value = project.value.description;
+    typedDescription.value = project.value.description || "";
   }
 }
 
@@ -193,13 +207,30 @@ const projects = [
   { title: "Kingdom Dilemma", category: "Narrative Game \u00b7 Educational Game", preview: "kingdom", description: "Every choice has a cost.", technologies: ["Vue 3", "Vite", "JavaScript"], route: { name: "KingdomDilemma" } },
   { title: "Rhythm Grove", category: "Physical Computing / In progress", image: "RhythmGroveLogo.png", icon: "fa-solid fa-drum", description: "A tangible rhythm-based game connecting a physical drum with synchronized visual feedback.", technologies: ["Arduino Nano Every"], route: { name: "RhythmGrove" } },
 ];
-const project = computed(() => projects[selected.value]);
+const { selected, firstVisit, selectChannel, stepChannel, cancelIntro, tutorialChanged } = useGameChannels(projects.length);
+const tutorialActive = ref(firstVisit);
+function handleTutorialChange(active) {
+  tutorialActive.value = active;
+  tutorialChanged(active);
+}
+const isIntroduction = computed(() => selected.value === -1);
+const controllerChannels = [...projects, { title: "Introduction" }];
+const project = computed(() => isIntroduction.value ? { title: "Introduction" } : projects[selected.value]);
+function handleChannelKey(event) {
+  if (!poweredOn.value || tutorialActive.value || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey
+    || event.target?.closest('input, textarea, select, [contenteditable]')) return;
+  if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+    event.preventDefault();
+    stepChannel(event.key === "ArrowRight" ? 1 : -1);
+  }
+}
 watch(selected, () => {
   stopDescriptionTyping();
   typedDescription.value = "";
   isSwitching.value = true;
 }, { flush: "sync" });
 watch(poweredOn, () => {
+  if (!poweredOn.value) cancelIntro();
   stopDescriptionTyping();
   if (!isSwitching.value) startDescriptionTyping();
 });
@@ -238,6 +269,15 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 42px;
 @keyframes crt-scanline-shift { to { background-position: 0 5px; } }
 @keyframes crt-channel-sweep { to { transform: translateY(500%); } }
 .project-screen { display: grid; grid-template-rows: 25px var(--preview-height) auto; gap: 12px; padding: 18px 22px 22px; transition: opacity 220ms ease, filter 220ms ease; }
+/* CH 00 shares the screen dimensions, keeping channel changes steady. */
+.introduction-screen { min-height: inherit; grid-template-rows: auto 1fr auto; gap: 18px; }
+.introduction-copy { display: flex; flex-direction: column; justify-content: center; gap: 14px; min-width: 0; }
+.introduction-copy p { margin: 0; color: #bed3d1; font-size: 14px; line-height: 1.65; }
+.introduction-copy .introduction-player { color: #9dbab8; font: 11px/1.5 monospace; letter-spacing: .08em; }
+.introduction-player i { margin-right: 6px; }
+.introduction-copy h2 { margin: 0; color: #e8f6ec; font: 600 clamp(22px, 2vw, 28px)/1.2 monospace; }
+.introduction-copy .introduction-motto { color: #e3dcb6; font: 14px/1.5 monospace; }
+.introduction-next { margin: 0; color: #9dbab8; font: 11px/1.5 monospace; }
 .monitor--off .monitor-screen { background: #142a2e; }
 .monitor--off .project-screen { opacity: 0; filter: brightness(0); }
 .monitor--off .monitor-screen::after { opacity: 0; }
@@ -279,6 +319,7 @@ h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 42px;
 .power-button:active { transform: translateY(2px); box-shadow: inset 1px 2px 3px #91a08d70, 0 1px 0 #b1bda9; }
 .power-status { display: flex; }
 .frame-action { display: flex; align-items: center; justify-content: center; min-height: 34px; }
+.channel-caption { color: #526e61; font: 11px monospace; }
 .project-action { position: relative; display: inline-flex; }
 .pixel-pointer { position: absolute; top: calc(50% - 13px); width: 32px; height: 26px; pointer-events: none; animation: pixel-point-nudge 1200ms steps(3, end) infinite; }
 .pixel-pointer--left { right: calc(100% + 10px); --point-nudge: 6px; }
